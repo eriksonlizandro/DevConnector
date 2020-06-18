@@ -31,7 +31,7 @@ const ProfileShema = new moongose.Schema({
 
     experience: [
         {
-            tittle:{
+            title:{
                 type:  String,
                 required: true
             },
@@ -63,19 +63,19 @@ const ProfileShema = new moongose.Schema({
         {
             school:{
                 type: String, 
-                required: true
+                
             }, 
             degree: {
                 type: String,
-                required: true
+                
             },
             fieldofstudy: {
                 type: String,
-                required: true
+                
             },
             from:{
                 type: Date,
-                required: true
+               
             },
             to:{
                 type: Date
