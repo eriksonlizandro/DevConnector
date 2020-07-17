@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "frontend": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\"  \"npm run frontend\""
   },
   "author": "Erikson Lizandro",
   "license": "MIT",
@@ -18,7 +20,8 @@
     "gravatar": "^1.8.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.17",
-    "request": "^2.88.2"
+    "request": "^2.88.2",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0",
