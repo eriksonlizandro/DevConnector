@@ -1,5 +1,5 @@
 {
-    "mongoURI": "mongodb+srv://eriksonlizandro:Metallover123!@devconnector-lfxwo.mongodb.net/devdb?retryWrites=true&w=majority",
-    "jwtSecret": "mysecrettoken",
-    "githubToken": "20678a0d1dc1a853ed9f34553525f9b62d8ce5c1"
+  "mongoURI": "mongodb+srv://eriksonlizandro:Metallover123!@devconnector-lfxwo.mongodb.net/devdb?retryWrites=true&w=majority",
+  "jwtSecret": "mysecrettoken",
+  "githubToken": "20678a0d1dc1a853ed9f34553525f9b62d8ce5c1"
 }
