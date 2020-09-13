@@ -2,6 +2,7 @@ import {
   GET_POSTS,
   POST_ERROR,
   UPDATE_LIKES,
+  UPDATE_LIKES_COMMENT,
   DELETE_POST,
   ADD_POST,
   GET_POST,
@@ -56,6 +57,19 @@ export default function (state = initialState, action) {
         posts: state.posts.map((post) =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
+        loading: false,
+      };
+    case UPDATE_LIKES_COMMENT:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          comments: state.post.comments.map((comment) =>
+            comment._id === payload.commentId
+              ? { ...comment, likes: payload.likes }
+              : comment
+          ),
+        },
         loading: false,
       };
     case ADD_COMMENT:

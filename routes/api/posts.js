@@ -219,3 +219,73 @@ router.delete('/comment/:id/:comment_id', auth, async (req, res) => {
 });
 
 module.exports = router;
+
+// @route    PUT api/posts/comment/like/:id/comment_id/
+// @desc     Like a comment
+// @access   Private
+router.put(
+  '/comment/like/:id/:comment_id/',
+  [auth, checkObjectId('id')],
+  async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      const comment = await post.comments.find(
+        (comment) => comment.id === req.params.comment_id
+      );
+
+      //check if user already like post
+      if (
+        comment.likes.filter((like) => like.user.toString() === req.user.id)
+          .length > 0
+      ) {
+        return res.status(400).json({ msg: 'Comment already liked' });
+      }
+
+      comment.likes.unshift({ user: req.user.id });
+
+      await post.save();
+
+      return res.json(comment.likes);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
+
+// @route    PUT api/posts/comment/:id/comment_id/unlike
+// @desc     Unlike a comment
+// @access   Private
+router.put(
+  '/comment/unlike/:id/:comment_id',
+  [auth, checkObjectId('id')],
+  async (req, res) => {
+    try {
+      const post = await Post.findById(req.params.id);
+      const comment = await post.comments.find(
+        (comment) => comment.id === req.params.comment_id
+      );
+
+      //check if user already like post
+      if (
+        comment.likes.filter((like) => like.user.toString() === req.user.id)
+          .length === 0
+      ) {
+        return res.status(400).json({ msg: 'Comment has not been liked yet' });
+      }
+
+      //Get remove index
+      const removeIndex = comment.likes
+        .map((like) => like.user.toString())
+        .indexOf(req.user.id);
+
+      comment.likes.splice(removeIndex, 1);
+      await post.save();
+
+      return res.json(comment.likes);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server Error');
+    }
+  }
+);
